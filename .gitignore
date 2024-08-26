@@ -1,0 +1,76 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# IDE and editor files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# MongoDB
+*.lock
+data/
+dump/
+
+# Bower
+bower_components/
+
+# Miscellaneous
+*.log
+*.gz
+coverage/
+node_modules/
+!.npm
+.DS_Store
+*.swo
+*.swp
+*.swn
+
+# Build directories
+dist/
+build/
+
+# Testing
+coverage/
+
+# Parcel-bundler cache (used by some MERN apps)
+.cache/
+
+# Jest
+coverage/
