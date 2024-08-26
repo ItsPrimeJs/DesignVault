@@ -1,5 +1,9 @@
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://121.0.0.1:27017/pintrest-clone");
+
+mongoose.connect("mongodb+srv://sujal01:DRJcZeTVb5vYHM5D@pintrest-clone.vltwf.mongodb.net/?retryWrites=true&w=majority&appName=Pintrest-clone");
+
+const plm = require("passport-local-mongoose");
+
 
 const userSchema = mongoose.Schema({
   username: String,
@@ -13,5 +17,5 @@ const userSchema = mongoose.Schema({
     default: []
   }
 })
-
+userSchema.plugin(plm);
 module.exports = mongoose.model("user",userSchema);

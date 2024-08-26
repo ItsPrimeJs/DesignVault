@@ -21,6 +21,11 @@ app.use(expressSession({
   secret:"asb3v439c8q34r439qicxe8i4crc2pqxr95h"
 }));
 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.serializeUser(usersRouter.serializeUser());
+passport.deserializeUser(usersRouter.deserializeUser());
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
