@@ -1,9 +1,17 @@
-var express = require('express');
-var router = express.Router();
+const mongoose = require("mongoose");
+mongoose.connect("mongodb://121.0.0.1:27017/pintrest-clone");
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+const userSchema = mongoose.Schema({
+  username: String,
+  name: String,
+  password: String,
+  email: String,
+  dp: String,
+  contact: Number,
+  board : {
+    type : Array,
+    default: []
+  }
+})
 
-module.exports = router;
+module.exports = mongoose.model("user",userSchema);
