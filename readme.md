@@ -41,6 +41,6 @@ Make sure you have the following installed:
 
 ### Clone the Repository
 
-```bash
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
+### Paste this in terminal
+git clone https://github.com/ItsPrimeJs/DesignVault
+cd DesignVault
