@@ -3,6 +3,9 @@ var router = express.Router();
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const userModel = require("./users");
+const postModel = require("./post");
+const upload = require("./multer");
+const users = require("./users");
 
 // Passport Configuration
 passport.use(new LocalStrategy(userModel.authenticate()));
@@ -11,18 +14,79 @@ passport.deserializeUser(userModel.deserializeUser());
 
 // Home route
 router.get("/", function (req, res, next) {
-  res.render("index");
+  res.render("index" ,{nav :false});
 });
 
 // Register route (GET)
 router.get("/register", function (req, res, next) {
-  res.render("register");
+  res.render("register",{nav :false});
+});
+
+router.get("/add", function (req, res, next) {
+  res.render("add",{nav :true});
 });
 
 // Profile route (protected)
-router.get("/profile", isLoggedIn, function (req, res, next) {
-  res.render("profile");
+router.get("/profile", isLoggedIn, async function (req, res, next) {
+  const user = 
+  await userModel
+      .findOne({username : req.session.passport.user})
+      .populate("posts");
+      console.log("user");
+      
+      
+      res.render("profile" , {user ,nav :true});
 });
+
+
+router.post("/fileupload", isLoggedIn, upload.single("image"), async function (req, res, next) {
+  if (!req.file) {
+    return res.status(400).send("No file uploaded.");
+  } else{
+  const user = await userModel.findOne({username : req.session.passport.user});
+  user.dp = req.file.filename;
+  await user.save();
+  res.redirect("/profile");
+  }
+});
+
+
+router.post("/createpost", isLoggedIn, upload.single("postimage"), async function (req, res, next) {
+  try {
+    // Check if the file is provided and its type
+    if (!req.file || !['image/jpeg', 'image/png'].includes(req.file.mimetype)) {
+      return res.status(400).send("Invalid file type. Only JPEG and PNG are allowed.");
+    }
+
+    // Find the user
+    const user = await userModel.findOne({ username: req.session.passport.user });
+    
+    if (!user) {
+      return res.status(404).send("User not found.");
+    }
+
+    // Create the post
+    const post = await postModel.create({
+      user: user._id,
+      title: req.body.title,
+      description: req.body.description,
+      image: req.file.filename,
+    });
+
+    // Add the post to the user's list
+    user.posts.push(post._id);
+    await user.save();
+
+    // Redirect to profile with a success message (optional)
+    res.redirect("/profile");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("An error occurred while creating the post.");
+  }
+});
+
+
+
 
 // Login route (POST)
 router.post(
