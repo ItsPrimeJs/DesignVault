@@ -1,4 +1,4 @@
-# [AppName] - A Pinterest Clone for Graphic Designers
+# [Design Vault] - A Pinterest Clone for Graphic Designers
 
 Welcome to **[AppName]**, a dedicated platform for graphic designers to share, discover, and get inspired by creative designs. This project is built using the MERN stack (MongoDB, Express.js, React, Node.js) and aims to provide a space where designers can pin their work, curate boards, and connect with other creatives.
 
