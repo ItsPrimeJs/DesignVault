@@ -19,7 +19,12 @@ router.get("/", function (req, res, next) {
 
 // Register route (GET)
 router.get("/register", function (req, res, next) {
-  res.render("register",{nav :false});
+  try {
+    // Render the register page with the 'nav' variable set to false
+    res.render("register", { nav: false });
+  } catch (error) {
+    res.redirect("/register");
+  }
 });
 
 router.get("/add", function (req, res, next) {
@@ -133,7 +138,7 @@ router.post("/register", function (req, res, next) {
     })
     .catch(function (err) {
       console.error(err);
-      res.render("register", { error: err.message });
+      res.render("register", {nav : false});
     });
 });
 
