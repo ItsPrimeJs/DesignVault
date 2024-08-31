@@ -31,6 +31,30 @@ router.get("/add", function (req, res, next) {
   res.render("add",{nav :true});
 });
 
+
+router.get("/userpost", isLoggedIn,async function (req, res, next) {
+  const user = 
+  await userModel
+  .findOne({username : req.session.passport.user})
+  .populate("posts");
+    res.render("userpost",{user , nav :true});
+});
+
+
+router.get("/feed", async function (req, res, next) {
+  try {
+      // Fetch all posts from the database
+      const posts = await postModel.find({}).populate("user");
+
+      // Render the feed page and pass the posts
+      res.render("feed", { nav: true, posts: posts });
+  } catch (error) {
+      console.error("Error fetching posts:", error);
+      res.status(500).send("An error occurred while fetching the posts.");
+  }
+});
+
+
 // Profile route (protected)
 router.get("/profile", isLoggedIn, async function (req, res, next) {
   const user = 

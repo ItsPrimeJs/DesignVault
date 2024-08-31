@@ -1,0 +1,19 @@
+<% include ./partials/hd.ejs %>
+    <div class="w-full min-h-screen bg-zinc-800">
+        <div class="cards flex flex-wrap gap-10 px-10 pt-6">
+            <% user.posts.forEach(post => { %>
+                <div class="card w-[13vw] overflow-hidden">
+                    <div class="w-[13vw] h-[18vw] bg-sky-400 rounded-lg overflow-hidden">
+                        <img class="w-full h-full object-cover" 
+                             src="/images/uploads/<%= post.image %>" 
+                             alt="User Post Image" />
+                    </div>
+                    
+                    <h3 class="ml-1 text-sm font-semibold mt-3 text-white"><%= post.title %></h3>
+                    <p class="ml-1 text-sm font-semibold opacity-40 text-white"><%= post.description %></p>
+                </div>
+            <% }) %>            
+        
+        </div>
+    </div>
+<% include ./partials/ft.ejs %>
